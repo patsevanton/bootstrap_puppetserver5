@@ -9,6 +9,10 @@ if [ "$?" -ne 0 ]; then
   exit 1
 fi
 
+#Disable Selinux
+setenforce 0
+sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
+
 yum install -y https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
 yum install -y puppet-agent ntp
 echo "[main]" > /etc/puppetlabs/puppet/puppet.conf
