@@ -38,10 +38,10 @@ systemctl enable puppetserver.service
 systemctl start puppetserver.service
 
 /opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
-echo "*.$your_domain" > /etc/puppetlabs/puppet/autosign.conf 
-cp pmdb.pp /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
-#sed -i "s/puppet.my.domain/$puppet_master/" /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
-sed -i "s/puppetdb.my.domain/$puppetdb_host/" /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
+echo "*.$your_domain" > /etc/puppetlabs/puppet/autosign.conf
+cp site.pp /etc/puppetlabs/code/environments/production/manifests/site.pp
+sed -i "s/puppet.my.domain/$puppet_master/" /etc/puppetlabs/code/environments/production/manifests/site.pp
+sed -i "s/puppetdb.my.domain/$puppetdb_host/" /etc/puppetlabs/code/environments/production/manifests/site.pp
 
 #Added $HOSTNAME to /etc/puppetlabs/puppet/puppet.conf
 echo "[main]" > /etc/puppetlabs/puppet/puppet.conf
