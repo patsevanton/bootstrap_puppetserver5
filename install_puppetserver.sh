@@ -37,8 +37,8 @@ systemctl start puppetserver.service
 /opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
 echo "*.$domain" > /etc/puppetlabs/puppet/autosign.conf
 cp site.pp /etc/puppetlabs/code/environments/production/manifests/site.pp
-sed -i "s/puppet.my.domain/'$HOSTNAME.$domain'/" /etc/puppetlabs/code/environments/production/manifests/site.pp
-sed -i "s/puppetdb.my.domain/'$puppetdb_host'/" /etc/puppetlabs/code/environments/production/manifests/site.pp
+sed -i "s/puppet.my.domain/$HOSTNAME.$domain/" /etc/puppetlabs/code/environments/production/manifests/site.pp
+sed -i "s/puppetdb.my.domain/$puppetdb_host/" /etc/puppetlabs/code/environments/production/manifests/site.pp
 
 #Added $HOSTNAME to /etc/puppetlabs/puppet/puppet.conf
 echo "[main]" > /etc/puppetlabs/puppet/puppet.conf
