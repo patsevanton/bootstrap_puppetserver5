@@ -1,6 +1,6 @@
 $master_host = 'puppet.my.domain'
 $puppetdb_host = 'puppetdb.my.domain'
- 
+
 node puppet.my.domain {
   # Here we configure the Puppet master to use PuppetDB,
   # telling it the hostname of the PuppetDB node
