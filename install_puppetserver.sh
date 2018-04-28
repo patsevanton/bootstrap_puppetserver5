@@ -3,9 +3,8 @@
 read -p "Enter your domain: " your_domain
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 
-read -p "Enter your FQDN Puppet Master: " fqdn_puppet_master
-read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
-
+#read -p "Enter your FQDN Puppet Master: " fqdn_puppet_master
+#read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 
 read -p "Enter your FQDN PuppetDB: " fqdn_puppetdb
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
@@ -41,5 +40,5 @@ systemctl start puppetserver.service
 /opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
 echo "*.$your_domain" > /etc/puppetlabs/puppet/autosign.conf 
 cp pmdb.pp /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
-sed -i "s/puppet.my.domain/$fqdn_puppet_master/" /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
+#sed -i "s/puppet.my.domain/$fqdn_puppet_master/" /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
 sed -i "s/puppetdb.my.domain/$fqdn_puppetdb/" /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
