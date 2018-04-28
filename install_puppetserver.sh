@@ -3,10 +3,10 @@
 read -p "Enter your domain: " your_domain
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 
-#read -p "Enter your FQDN Puppet Master: " fqdn_puppet_master
+#read -p "Enter your Puppet Master host: " puppet_master_host
 #read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 
-read -p "Enter your FQDN PuppetDB: " fqdn_puppetdb
+read -p "Enter your PuppetDB host: " puppetdb_host
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 
 #Disable Selinux
@@ -40,5 +40,10 @@ systemctl start puppetserver.service
 /opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
 echo "*.$your_domain" > /etc/puppetlabs/puppet/autosign.conf 
 cp pmdb.pp /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
-#sed -i "s/puppet.my.domain/$fqdn_puppet_master/" /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
-sed -i "s/puppetdb.my.domain/$fqdn_puppetdb/" /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
+#sed -i "s/puppet.my.domain/$puppet_master/" /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
+sed -i "s/puppetdb.my.domain/$puppetdb_host/" /etc/puppetlabs/code/environments/production/manifests/pmdb.pp
+
+#Added $HOSTNAME to /etc/puppetlabs/puppet/puppet.conf
+echo "[main]" > /etc/puppetlabs/puppet/puppet.conf
+echo "server = $HOSTNAME" >> /etc/puppetlabs/puppet/puppet.conf
+echo "ca_server = $HOSTNAME" >> /etc/puppetlabs/puppet/puppet.conf
