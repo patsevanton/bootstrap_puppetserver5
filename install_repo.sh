@@ -25,7 +25,7 @@ sed -i "s/-Xms2g/-Xms$mem_devide_2/" /etc/sysconfig/puppetserver
 sed -i "s/-Xmx2g/-Xmx$mem_devide_2/" /etc/sysconfig/puppetserver
 sed -i "s/MaxPermSize=256/MaxPermSize=$mem_devide_4/" /etc/sysconfig/puppetserver
 
-#systemctl enable puppetserver.service
-#systemctl start puppetserver.service
+systemctl enable puppetserver.service
+systemctl start puppetserver.service
 
-#/opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
+/opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
