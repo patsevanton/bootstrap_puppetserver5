@@ -27,4 +27,4 @@ sed -i "s/MaxPermSize=256m/MaxPermSize=$mem_devide_4/" /etc/sysconfig/puppetserv
 #systemctl enable puppetserver.service
 #systemctl start puppetserver.service
 
-#puppet module install puppetlabs-puppetdb
+puppet module install puppetlabs-puppetdb
