@@ -14,4 +14,8 @@ yum install -y https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
 #Install puppetserver
 yum install -y puppetserver ntp
 
-sed -i "s/-Xms2g -Xmx2g/-Xms512m -Xmx512m -XX:MaxPermSize=256m/" /etc/sysconfig/puppetserver
+mem=$(free -m|awk '/^Mem:/{print $2}')
+mem_devide_2=$(( $mem / 2 ))
+mem_devide_4=$(( $mem / 4 ))
+
+sed -i "s/-Xms2g -Xmx2g/-Xms$mem_devide_2 -Xmx$mem_devide_2 -XX:MaxPermSize=$mem_devide_4/" /etc/sysconfig/puppetserver
