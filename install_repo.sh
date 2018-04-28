@@ -23,3 +23,6 @@ mem_devide_4=$(( $mem / 4 ))
 
 sed -i "s/-Xms2g -Xmx2g/-Xms$mem_devide_2 -Xmx$mem_devide_2/" /etc/sysconfig/puppetserver
 sed -i "s/MaxPermSize=256m/MaxPermSize=$mem_devide_4/" /etc/sysconfig/puppetserver
+
+#systemctl enable puppetserver.service
+#systemctl start puppetserver.service
