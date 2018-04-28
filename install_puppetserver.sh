@@ -32,4 +32,4 @@ systemctl enable puppetserver.service
 systemctl start puppetserver.service
 
 /opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
-echo $your_domain > /etc/puppetlabs/puppet/autosign.conf 
+echo "*.$your_domain" > /etc/puppetlabs/puppet/autosign.conf 
