@@ -1,2 +1,2 @@
-# bootstrap_puppetserver5
-bootstrap puppetserver 5
+# bootstrap_puppetserver_centos
+bootstrap puppetserver centos 7
