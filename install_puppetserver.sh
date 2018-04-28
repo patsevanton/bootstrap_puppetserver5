@@ -1,10 +1,7 @@
 #!/bin/bash
 
-read -p "Enter your domain: " your_domain
+read -p "Enter your domain: " domain
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
-
-#read -p "Enter your Puppet Master host: " puppet_master_host
-#read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 
 read -p "Enter your PuppetDB host: " puppetdb_host
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
@@ -38,12 +35,12 @@ systemctl enable puppetserver.service
 systemctl start puppetserver.service
 
 /opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
-echo "*.$your_domain" > /etc/puppetlabs/puppet/autosign.conf
+echo "*.$domain" > /etc/puppetlabs/puppet/autosign.conf
 cp site.pp /etc/puppetlabs/code/environments/production/manifests/site.pp
-sed -i "s/puppet.my.domain/$HOSTNAME/" /etc/puppetlabs/code/environments/production/manifests/site.pp
+sed -i "s/puppet.my.domain/$HOSTNAME$domain/" /etc/puppetlabs/code/environments/production/manifests/site.pp
 sed -i "s/puppetdb.my.domain/$puppetdb_host/" /etc/puppetlabs/code/environments/production/manifests/site.pp
 
 #Added $HOSTNAME to /etc/puppetlabs/puppet/puppet.conf
 echo "[main]" > /etc/puppetlabs/puppet/puppet.conf
-echo "server = $HOSTNAME" >> /etc/puppetlabs/puppet/puppet.conf
-echo "ca_server = $HOSTNAME" >> /etc/puppetlabs/puppet/puppet.conf
+echo "server = $HOSTNAME$domain" >> /etc/puppetlabs/puppet/puppet.conf
+echo "ca_server = $HOSTNAME$domain" >> /etc/puppetlabs/puppet/puppet.conf
