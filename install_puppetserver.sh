@@ -1,5 +1,8 @@
 #!/bin/bash
 
+read -p "Enter your domain: " your_domain
+read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
+
 #Disable Selinux
 setenforce 0
 sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
@@ -29,3 +32,4 @@ systemctl enable puppetserver.service
 systemctl start puppetserver.service
 
 /opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
+echo $your_domain > /etc/puppetlabs/puppet/autosign.conf 
