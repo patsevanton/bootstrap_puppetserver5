@@ -10,7 +10,7 @@ sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
 #systemctl disable firewalld
 
 #Install repo
-yum install -y https://yum.puppetlabs.com/puppet/puppet-release-el-7.noarch.rpm
+yum install -y https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
 #Install puppetserver
 yum install -y puppetserver ntp
 
