@@ -29,7 +29,8 @@ echo "server = $fqdn_puppet_master" >> /etc/puppetlabs/puppet/puppet.conf
 echo "ca_server = $fqdn_puppet_master" >> /etc/puppetlabs/puppet/puppet.conf
 
 while true ; do
-  cat < /dev/null > /dev/tcp/$fqdn_puppet_master/8140
+  #cat < /dev/null > /dev/tcp/$fqdn_puppet_master/8140
+  timeout 1 bash -c "cat < /dev/null > /dev/tcp/$fqdn_puppet_master/8140"
   if [ "$?" -ne 0 ]; then
     echo "Connection to $fqdn_puppet_master on port 8140 failed"
   fi
