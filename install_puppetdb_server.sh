@@ -33,6 +33,9 @@ while true ; do
   timeout 1 bash -c "cat < /dev/null > /dev/tcp/$fqdn_puppet_master/8140"
   if [ "$?" -ne 0 ]; then
     echo "Connection to $fqdn_puppet_master on port 8140 failed"
+    echo "Wait 10 second"
+  else
+    break
   fi
   sleep 10
 done

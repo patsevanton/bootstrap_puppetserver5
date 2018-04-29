@@ -52,10 +52,12 @@ echo "dns_alt_names = $HOSTNAME,$HOSTNAME.$domain" >> /etc/puppetlabs/puppet/pup
 
 while true ; do
   #cat < /dev/null > /dev/tcp/$fqdn_puppetdb/8081
-  timeout 1 bash -c "cat < /dev/null > cat < /dev/null > /dev/tcp/$fqdn_puppetdb/8081"
+  timeout 1 bash -c "cat < /dev/null > /dev/tcp/$fqdn_puppetdb/8081"
   if [ "$?" -ne 0 ]; then
     echo "Connection to $fqdn_puppetdb on port 8081 failed"
-    echo "Wait 30 second"
+    echo "Wait 10 second"
+  else
+    break
   fi
   sleep 10
 done
