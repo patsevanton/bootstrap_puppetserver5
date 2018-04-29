@@ -33,9 +33,6 @@ sed -i "s/-Xms2g/-Xms$mem_devide_2/" /etc/sysconfig/puppetserver
 sed -i "s/-Xmx2g/-Xmx$mem_devide_2/" /etc/sysconfig/puppetserver
 sed -i "s/MaxPermSize=256/MaxPermSize=$mem_devide_4/" /etc/sysconfig/puppetserver
 
-systemctl enable puppetserver.service
-systemctl start puppetserver.service
-
 /opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
 #Autosign Puppet certificates on you domain
 echo "*.$domain" > /etc/puppetlabs/puppet/autosign.conf
@@ -50,8 +47,10 @@ echo "server = $HOSTNAME.$domain" >> /etc/puppetlabs/puppet/puppet.conf
 echo "ca_server = $HOSTNAME.$domain" >> /etc/puppetlabs/puppet/puppet.conf
 echo "dns_alt_names = $HOSTNAME,$HOSTNAME.$domain" >> /etc/puppetlabs/puppet/puppet.conf
 
+systemctl enable puppetserver.service
+systemctl start puppetserver.service
+
 while true ; do
-  #cat < /dev/null > /dev/tcp/$fqdn_puppetdb/8081
   timeout 1 bash -c "cat < /dev/null > /dev/tcp/$fqdn_puppetdb/8081"
   if [ "$?" -ne 0 ]; then
     echo "Connection to $fqdn_puppetdb on port 8081 failed"
