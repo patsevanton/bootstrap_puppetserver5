@@ -54,3 +54,13 @@ echo "[main]" > /etc/puppetlabs/puppet/puppet.conf
 echo "server = $HOSTNAME.$domain" >> /etc/puppetlabs/puppet/puppet.conf
 echo "ca_server = $HOSTNAME.$domain" >> /etc/puppetlabs/puppet/puppet.conf
 echo "dns_alt_names = $HOSTNAME,$HOSTNAME.$domain" >> /etc/puppetlabs/puppet/puppet.conf
+
+while true ; do
+  </dev/tcp/$fqdn_puppetdb/8081
+  if [ "$?" -ne 0 ]; then
+    echo "Connection to $fqdn_puppetdb on port 8081 failed"
+  fi
+  sleep 30
+done
+
+/opt/puppetlabs/bin/puppet agent --test

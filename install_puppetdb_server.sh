@@ -1,7 +1,17 @@
 #!/bin/bash
 
+read -p "Enter your domain: " domain
+read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
+
 read -p "Enter FQDN Puppet Master: " fqdn_puppet_master
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
+
+if [[ $fqdn_puppet_master = *$domain* ]]; then
+  echo "$fqdn_puppet_master contains $domain"
+else
+  echo "$fqdn_puppet_master does not contains $domain"
+  exit 1
+fi
 
 </dev/tcp/$fqdn_puppet_master/8140
 if [ "$?" -ne 0 ]; then
