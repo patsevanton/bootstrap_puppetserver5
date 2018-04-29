@@ -41,3 +41,4 @@ echo "server = $fqdn_puppet_master" >> /etc/puppetlabs/puppet/puppet.conf
 echo "ca_server = $fqdn_puppet_master" >> /etc/puppetlabs/puppet/puppet.conf
 
 /opt/puppetlabs/bin/puppet agent --test
+/opt/puppetlabs/bin/puppet agent --test
