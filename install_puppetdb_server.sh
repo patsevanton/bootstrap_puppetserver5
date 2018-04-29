@@ -22,12 +22,6 @@ fi
 setenforce 0
 sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
 
-yum install -y https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
-yum install -y puppet-agent ntp
-echo "[main]" > /etc/puppetlabs/puppet/puppet.conf
-echo "server = $fqdn_puppet_master" >> /etc/puppetlabs/puppet/puppet.conf
-echo "ca_server = $fqdn_puppet_master" >> /etc/puppetlabs/puppet/puppet.conf
-
 while true ; do
   #cat < /dev/null > /dev/tcp/$fqdn_puppet_master/8140
   timeout 1 bash -c "cat < /dev/null > /dev/tcp/$fqdn_puppet_master/8140"
@@ -39,5 +33,11 @@ while true ; do
   fi
   sleep 10
 done
+
+yum install -y https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+yum install -y puppet-agent ntp
+echo "[main]" > /etc/puppetlabs/puppet/puppet.conf
+echo "server = $fqdn_puppet_master" >> /etc/puppetlabs/puppet/puppet.conf
+echo "ca_server = $fqdn_puppet_master" >> /etc/puppetlabs/puppet/puppet.conf
 
 /opt/puppetlabs/bin/puppet agent --test
