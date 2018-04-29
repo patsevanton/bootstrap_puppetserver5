@@ -54,6 +54,7 @@ while true ; do
   </dev/tcp/$fqdn_puppetdb/8081
   if [ "$?" -ne 0 ]; then
     echo "Connection to $fqdn_puppetdb on port 8081 failed"
+    echo "Wait 30 second"
   fi
   sleep 30
 done
