@@ -14,9 +14,9 @@ else
 fi
 
 #Stop iptables.service
-systemctl stop iptables.service
+#systemctl stop iptables.service
 #Disable iptables.service
-systemctl disable iptables.service
+#systemctl disable iptables.service
 
 #Disable Selinux
 setenforce 0
