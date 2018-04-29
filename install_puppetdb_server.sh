@@ -13,6 +13,11 @@ else
   exit 1
 fi
 
+#Stop firewalld
+systemctl stop firewalld
+#Disable firewalld
+systemctl disable firewalld
+
 </dev/tcp/$fqdn_puppet_master/8140
 if [ "$?" -ne 0 ]; then
   echo "Connection to $fqdn_puppet_master on port 8140 failed"
