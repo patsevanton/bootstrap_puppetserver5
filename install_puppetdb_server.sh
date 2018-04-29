@@ -13,10 +13,10 @@ else
   exit 1
 fi
 
-#Stop firewalld
-systemctl stop firewalld
-#Disable firewalld
-systemctl disable firewalld
+#Stop iptables.service
+systemctl stop iptables.service
+#Disable iptables.service
+systemctl disable iptables.service
 
 </dev/tcp/$fqdn_puppet_master/8140
 if [ "$?" -ne 0 ]; then
