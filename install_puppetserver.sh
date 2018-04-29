@@ -6,6 +6,13 @@ read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][e
 read -p "Enter your FQDN PuppetDB: " fqdn_puppetdb
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 
+if [[ $fqdn_puppetdb = *$domain* ]]; then
+  echo "$fqdn_puppetdb contains $domain"
+else
+  echo "$fqdn_puppetdb does not contains $domain"
+  exit 1
+fi
+
 #Disable Selinux
 setenforce 0
 sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
