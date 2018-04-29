@@ -3,7 +3,7 @@
 read -p "Enter your domain: " domain
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 
-read -p "Enter your PuppetDB host: " puppetdb_host
+read -p "Enter your FQDN PuppetDB: " fqdn_puppetdb
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 
 #Disable Selinux
@@ -35,10 +35,12 @@ systemctl enable puppetserver.service
 systemctl start puppetserver.service
 
 /opt/puppetlabs/bin/puppet module install puppetlabs-puppetdb
+#Autosign Puppet certificates on you domain
 echo "*.$domain" > /etc/puppetlabs/puppet/autosign.conf
+#Added site.pp for Puppet Master and PuppetDB
 cp site.pp /etc/puppetlabs/code/environments/production/manifests/site.pp
 sed -i "s/puppet.my.domain/$HOSTNAME.$domain/" /etc/puppetlabs/code/environments/production/manifests/site.pp
-sed -i "s/puppetdb.my.domain/$puppetdb_host/" /etc/puppetlabs/code/environments/production/manifests/site.pp
+sed -i "s/puppetdb.my.domain/$fqdn_puppetdb/" /etc/puppetlabs/code/environments/production/manifests/site.pp
 
 #Added $HOSTNAME to /etc/puppetlabs/puppet/puppet.conf
 echo "[main]" > /etc/puppetlabs/puppet/puppet.conf
