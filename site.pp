@@ -18,12 +18,8 @@ node 'puppetdb.my.domain' {
   class { 'puppetdb::server':
     database_host => $puppetdb_host,
   }
-
-  resources { 'firewall':
-    purge => true,
-  }
   # Firewall implementation firewall puppet needed
-  firewall { 'Open port 8081 for sending data to puppetdb and 8080 for dashboard view':
+  firewall { '999 Open port 8081 for sending data to puppetdb and 8080 for dashboard view':
     dport   => [8081,8080],
     proto  => tcp,
     action => accept,
